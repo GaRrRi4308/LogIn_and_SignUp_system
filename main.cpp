@@ -2,11 +2,11 @@
 
 using namespace std;
 
-bool IsLoggedIn() { //
+bool IsLoggedIn() { // Check if user is logged in function
     string username, password;
 
-    cout << "Enter username: "; cin >> username;
-    cout << "Enter password: "; cin >> password;
+    cout << "Enter username: "; cin >> username; // Prompt user to enter username
+    cout << "Enter password: "; cin >> password; // Prompt user to enter password
 
     return false;
 }
