@@ -26,18 +26,40 @@ bool IsLoggedIn() { // Check if user is logged in function
 int main() {
     int choice;
 
-    cout << "1: Register\n2: Login\nYour choice: "; cin >> choice; // Displays menu to select an action
-    if (choice == 1) // If the user chooses to register
-    {
-        string username, password;
+    while (true) {
+        // Prompt user to select an action from the menu
+        cout << "1: Register\n2: Login\n3: Exit\nYour choice: ";
+        cin >> choice;
 
-        cout << "select a username: "; cin >> username; // Prompts user to enter a username
-        cout << "select a password: "; cin >> password; // Prompts user to enter a password
+        if (choice == 1) { // If the user chooses to register
+            string username, password;
 
-        // TODO: add code to save the username and password to a file
+            // Prompt user to enter a username and a password
+            cout << "select a username: ";
+            cin >> username;
+            cout << "select a password: ";
+            cin >> password;
+
+            // Save the username and password to a file
+            ofstream file;
+            file.open("data\\" + username + ".txt");
+            file << username << endl << password;
+            file.close();
+        } else if (choice == 2) { // If the user chooses to log in
+            bool status = IsLoggedIn();
+
+            if (!status) {
+                // Display error message if login fails
+                cout << "False Login!" << endl;
+                system("PAUSE");
+            } else {
+                // Display success message if login succeeds
+                cout << "Successfully logged in!" << endl;
+            }
+        } else if (choice == 3) { // If the user chooses to exit
+            break; // Exit the loop and terminate the program
+        }
     }
-    else if (choice == 2) // If the user chooses to log in
-    {
-        IsLoggedIn(); // Calls the function to check if the user is logged in
-    }
+
+    return 0;
 }
