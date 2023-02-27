@@ -1,3 +1,15 @@
-/cmake-build-debug/
-/CMakeLists.txt
-/.idea/
+# Ignore build directories
+Debug/
+Release/
+
+# Ignore IDE specific files
+.idea/
+
+# Ignore cmake build files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Ignore executable files
+*.exe

@@ -9,7 +9,7 @@ bool IsLoggedIn() { // Check if user is logged in function
     cout << "Enter username: "; cin >> username; // Prompt user to enter username
     cout << "Enter password: "; cin >> password; // Prompt user to enter password
 
-    ifstream read("data\\" + username + ".txt"); // Opens file with the given username
+    ifstream read("c\\" + username + ".txt"); // Opens file with the given username
     getline(read, un); // Reads the first line from the file which contains the username
     getline(read, pw); // Reads the second line from the file which contains the password
 
@@ -55,6 +55,8 @@ int main() {
             } else {
                 // Display success message if login succeeds
                 cout << "Successfully logged in!" << endl;
+                system("PAUSE");
+                return 1;
             }
         } else if (choice == 3) { // If the user chooses to exit
             break; // Exit the loop and terminate the program
