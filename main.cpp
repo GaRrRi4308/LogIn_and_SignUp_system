@@ -1,5 +1,9 @@
 #include <iostream>
 #include <fstream>
+#include <QApplication>
+#include <QFile>
+#include <QTextStream>
+#include <QInputDialog>
 
 using namespace std;
 
@@ -23,29 +27,31 @@ bool IsLoggedIn() { // Check if user is logged in function
     }
 }
 
-int main() {
-    int choice;
+int main(int argc, char *argv[]) {
+    // Initialize the Qt application
+    QApplication app(argc, argv);
 
+    //Loop until the user chooses to exit
     while (true) {
-        // Prompt user to select an action from the menu
-        cout << "1: Register\n2: Login\n3: Exit\nYour choice: ";
-        cin >> choice;
+        // Show a menu with option to register, login, or exit
+        QStringList options;
+        options << "Register" << "Login" << "Exit";
+        QString choice = QInputDialog::getItem(nullptr, "Menu", "Select an action:", options);
 
-        if (choice == 1) { // If the user chooses to register
-            string username, password;
-
+        if (choice == "Register") {
             // Prompt user to enter a username and a password
-            cout << "select a username: ";
-            cin >> username;
-            cout << "select a password: ";
-            cin >> password;
+           QString username = QInputDialog::getText(nullptr, "Register", "Select a username:");
+           QString password = QInputDialog::getText(nullptr, "Register", "Select a password:");
 
             // Save the username and password to a file
-            ofstream file;
-            file.open("data\\" + username + ".txt");
-            file << username << endl << password;
-            file.close();
-        } else if (choice == 2) { // If the user chooses to log in
+            QFile file("data/" + username + ".txt");
+            if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                QTextStream out(&file);
+                out << username << "/n" << password;
+                file.close();
+            }
+
+        } else if (choice == "Login") { // If the user chooses to log in
             bool status = IsLoggedIn();
 
             if (!status) {
@@ -58,7 +64,7 @@ int main() {
                 system("PAUSE");
                 return 1;
             }
-        } else if (choice == 3) { // If the user chooses to exit
+        } else if (choice == "Exit") { // If the user chooses to exit
             break; // Exit the loop and terminate the program
         }
     }
